@@ -1,0 +1,110 @@
+---
+import Logo from './Logo.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { footer } = t;
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: footer.product,
+    links: [
+      { label: footer.links.features, href: '#features' },
+      { label: footer.links.pricing, href: '#pricing' },
+      { label: footer.links.login, href: '/login' },
+      { label: footer.links.changelog, href: '/changelog' },
+    ],
+  },
+  {
+    title: footer.company,
+    links: [
+      { label: footer.links.about, href: '/about' },
+      { label: footer.links.contact, href: '/contact' },
+    ],
+  },
+  {
+    title: footer.legal,
+    links: [
+      { label: footer.links.privacy, href: '/privacy' },
+      { label: footer.links.terms, href: '/terms' },
+    ],
+  },
+];
+---
+
+<footer class="relative px-5 pb-12 pt-20 sm:px-8">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+  >
+  </div>
+
+  <div class="mx-auto max-w-6xl">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_repeat(3,1fr)] md:gap-8">
+      <div class="max-w-xs">
+        <Logo />
+        <p class="mt-4 text-pretty text-sm leading-relaxed text-slate-500">{footer.tagline}</p>
+      </div>
+
+      {
+        columns.map((column) => (
+          <nav aria-label={column.title}>
+            <h2 class="text-[13px] font-medium text-slate-300">{column.title}</h2>
+            <ul class="mt-4 space-y-2.5">
+              {column.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-sm text-slate-500 transition-colors duration-150 hover:text-slate-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-14 flex flex-col-reverse items-start justify-between gap-6 border-t border-white/5 pt-6 sm:flex-row sm:items-center"
+    >
+      <p class="text-[13px] text-slate-600">
+        © {year} Really CRM. {footer.rights}
+      </p>
+
+      <div class="flex items-center gap-2 text-[13px]">
+        <span class="text-slate-600">{footer.language}</span>
+        <div
+          class="flex items-center gap-0.5 rounded-lg bg-white/5 p-0.5 text-[11px] font-medium ring-1 ring-white/10"
+        >
+          <a
+            href="/"
+            hreflang="es"
+            aria-current={lang === 'es' ? 'true' : undefined}
+            class:list={[
+              'rounded-[6px] px-2 py-1 transition-colors duration-150',
+              lang === 'es' ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300',
+            ]}>ES</a
+          >
+          <a
+            href="/en/"
+            hreflang="en"
+            aria-current={lang === 'en' ? 'true' : undefined}
+            class:list={[
+              'rounded-[6px] px-2 py-1 transition-colors duration-150',
+              lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300',
+            ]}>EN</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,111 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { pricing } = t;
+
+const featuredIndex = 1;
+---
+
+<section id="pricing" class="relative px-5 py-24 sm:px-8 sm:py-32">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+  >
+  </div>
+
+  <div class="mx-auto max-w-6xl">
+    <header class="max-w-2xl">
+      <p class="reveal text-[13px] font-medium text-blue-400">{pricing.eyebrow}</p>
+      <h2
+        class="reveal mt-3 text-balance text-3xl font-semibold text-white sm:text-[2.6rem]"
+        style="--delay: 60ms"
+      >
+        {pricing.title}
+      </h2>
+      <p class="reveal mt-4 text-[15px] text-slate-400" style="--delay: 120ms">
+        {pricing.subtitle}
+      </p>
+    </header>
+
+    <div class="mt-12 grid items-start gap-3 md:grid-cols-3 sm:mt-14">
+      {
+        pricing.plans.map((plan, index) => {
+          const featured = index === featuredIndex;
+          const isEnterprise = index === pricing.plans.length - 1;
+          return (
+            <div
+              class:list={[
+                'reveal relative flex flex-col rounded-2xl p-6 ring-1 sm:p-7',
+                featured
+                  ? 'bg-slate-900 ring-blue-500/40 shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_24px_60px_-30px_rgba(59,130,246,0.55)]'
+                  : 'bg-white/[0.03] ring-white/10',
+              ]}
+              style={`--delay: ${index * 70}ms`}
+            >
+              {featured && (
+                <span class="absolute right-6 top-6 rounded-full bg-blue-500/15 px-2.5 py-1 text-[11px] font-medium text-blue-300 ring-1 ring-blue-400/25 sm:right-7 sm:top-7">
+                  {pricing.popular}
+                </span>
+              )}
+
+              <h3 class="text-[15px] font-semibold text-white">{plan.name}</h3>
+              <p class="mt-1.5 text-sm text-slate-500">{plan.tagline}</p>
+
+              <p class="mt-6 flex items-baseline gap-1.5">
+                <span class="text-4xl font-semibold tracking-[-0.03em] text-white">
+                  {plan.price}
+                </span>
+                {!isEnterprise && (
+                  <span class="text-sm text-slate-500">{pricing.perMonth}</span>
+                )}
+              </p>
+
+              <a
+                href={isEnterprise ? '/contact' : '/signup'}
+                class:list={[
+                  'press mt-6 inline-flex h-11 items-center justify-center rounded-xl px-5 text-sm font-medium transition-colors duration-150',
+                  featured
+                    ? 'bg-blue-500 text-white hover:bg-blue-400'
+                    : 'bg-white/5 text-slate-200 ring-1 ring-white/10 hover:bg-white/10',
+                ]}
+              >
+                {isEnterprise ? pricing.ctaEnterprise : pricing.cta}
+              </a>
+
+              <ul class="mt-7 space-y-3 border-t border-white/5 pt-7">
+                {plan.features.map((feature) => (
+                  <li class="flex items-start gap-2.5 text-sm text-slate-400">
+                    <svg
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                      class:list={[
+                        'mt-[3px] size-3.5 shrink-0',
+                        featured ? 'text-blue-400' : 'text-slate-600',
+                      ]}
+                    >
+                      <path
+                        d="m3.5 8.5 3 3 6-7"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span class="text-pretty">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

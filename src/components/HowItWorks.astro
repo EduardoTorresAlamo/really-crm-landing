@@ -1,0 +1,63 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { how } = t;
+---
+
+<section id="how" class="relative px-5 py-24 sm:px-8 sm:py-32">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+  >
+  </div>
+
+  <div class="mx-auto max-w-6xl">
+    <header class="max-w-2xl">
+      <p class="reveal text-[13px] font-medium text-blue-400">{how.eyebrow}</p>
+      <h2
+        class="reveal mt-3 text-balance text-3xl font-semibold text-white sm:text-[2.6rem]"
+        style="--delay: 60ms"
+      >
+        {how.title}
+      </h2>
+    </header>
+
+    <ol class="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+      <!-- The rail: one continuous line the steps sit on. -->
+      <div
+        aria-hidden="true"
+        class="reveal pointer-events-none absolute left-0 right-0 top-[13px] hidden h-px bg-gradient-to-r from-blue-500/40 via-white/10 to-transparent md:block"
+      >
+      </div>
+
+      {
+        how.steps.map((step, index) => (
+          <li class="reveal relative" style={`--delay: ${index * 90}ms`}>
+            <div class="flex items-center gap-3">
+              <span
+                class:list={[
+                  'relative z-10 size-[7px] shrink-0 rounded-full ring-4 ring-slate-950',
+                  index === 0 ? 'bg-blue-500' : 'bg-slate-600',
+                ]}
+              />
+              <span class="font-mono text-[12px] tabular-nums tracking-widest text-slate-600">
+                {step.n}
+              </span>
+            </div>
+
+            <h3 class="mt-5 text-lg font-semibold text-white">{step.title}</h3>
+            <p class="mt-2.5 max-w-sm text-pretty text-sm leading-relaxed text-slate-400">
+              {step.body}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

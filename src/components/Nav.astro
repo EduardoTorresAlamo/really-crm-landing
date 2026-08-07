@@ -1,0 +1,156 @@
+---
+import Logo from './Logo.astro';
+import { useTranslations, localizePath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = localizePath('/', lang);
+
+const links = [
+  { href: '#features', label: t.nav.features },
+  { href: '#how', label: t.nav.how },
+  { href: '#pricing', label: t.nav.pricing },
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-40">
+  <!-- Scroll edge: content fades under the chrome instead of hitting a 1px divider. -->
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-slate-950 via-slate-950/80 to-transparent"
+  >
+  </div>
+
+  <nav
+    class="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
+    aria-label={t.nav.menu}
+  >
+    <a href={home} class="press rounded-lg" aria-label="Really CRM">
+      <Logo />
+    </a>
+
+    <div class="hidden items-center gap-1 md:flex">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors duration-150 hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <div
+        class="flex items-center gap-0.5 rounded-lg bg-white/5 p-0.5 text-[11px] font-medium ring-1 ring-white/10"
+      >
+        <a
+          href="/"
+          aria-current={lang === 'es' ? 'true' : undefined}
+          class:list={[
+            'rounded-[6px] px-2 py-1 transition-colors duration-150',
+            lang === 'es' ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300',
+          ]}>ES</a
+        >
+        <a
+          href="/en/"
+          aria-current={lang === 'en' ? 'true' : undefined}
+          class:list={[
+            'rounded-[6px] px-2 py-1 transition-colors duration-150',
+            lang === 'en' ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300',
+          ]}>EN</a
+        >
+      </div>
+
+      <a
+        href="/login"
+        class="press rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors duration-150 hover:text-white"
+      >
+        {t.nav.login}
+      </a>
+      <a
+        href="/signup"
+        class="press rounded-lg bg-white px-3.5 py-2 text-sm font-medium text-slate-950 transition-colors duration-150 hover:bg-slate-200"
+      >
+        {t.nav.cta}
+      </a>
+    </div>
+
+    <button
+      type="button"
+      id="menu-button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label={t.nav.menu}
+      class="press grid size-10 place-items-center rounded-lg text-slate-300 ring-1 ring-white/10 md:hidden"
+    >
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="size-5" stroke-width="1.75">
+        <path d="M4 8h16M4 16h16" stroke="currentColor" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    hidden
+    class="relative mx-5 mb-2 rounded-2xl bg-slate-900/80 p-2 ring-1 ring-white/10 backdrop-blur-xl md:hidden"
+  >
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          data-close-menu
+          class="block rounded-xl px-3 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+    <div class="my-2 h-px bg-white/10"></div>
+    <a
+      href="/login"
+      class="block rounded-xl px-3 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white"
+      >{t.nav.login}</a
+    >
+    <a
+      href="/signup"
+      class="mt-1 block rounded-xl bg-white px-3 py-2.5 text-center text-sm font-medium text-slate-950"
+      >{t.nav.cta}</a
+    >
+    <div class="mt-2 flex items-center gap-2 px-3 py-2 text-xs text-slate-500">
+      <span>{t.footer.language}</span>
+      <a href="/" class:list={[lang === 'es' && 'text-white']}>ES</a>
+      <span aria-hidden="true">·</span>
+      <a href="/en/" class:list={[lang === 'en' && 'text-white']}>EN</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const button = document.getElementById('menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  if (button && menu) {
+    const setOpen = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+    };
+
+    button.addEventListener('click', () => {
+      setOpen(button.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.querySelectorAll('[data-close-menu]').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>

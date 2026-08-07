@@ -1,0 +1,150 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { hero } = t;
+---
+
+<section class="relative isolate overflow-hidden px-5 pb-24 pt-36 sm:px-8 sm:pt-44">
+  <!-- Ambient light. One source, low intensity — enough to lift the fold off the background. -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute left-1/2 top-0 -z-10 h-[38rem] w-[64rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-blue-500/10 blur-[110px]"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute left-[68%] top-[26rem] -z-10 h-80 w-80 -translate-x-1/2 rounded-full bg-violet-500/10 blur-[100px]"
+  >
+  </div>
+
+  <div class="mx-auto max-w-3xl text-center">
+    <p
+      class="rise inline-flex items-center gap-2 rounded-full bg-white/5 py-1.5 pl-1.5 pr-3.5 text-[13px] text-slate-400 ring-1 ring-white/10"
+    >
+      <span
+        class="rounded-full bg-violet-500/15 px-2 py-0.5 text-[11px] font-medium tracking-wide text-violet-300"
+      >
+        AI
+      </span>
+      {hero.eyebrow}
+    </p>
+
+    <h1
+      class="rise mt-7 text-balance text-[2.6rem] font-semibold text-white sm:text-6xl"
+      style="--delay: 60ms"
+    >
+      {hero.title}
+      <span class="block text-slate-500">{hero.titleAccent}</span>
+    </h1>
+
+    <p
+      class="rise mx-auto mt-6 max-w-xl text-pretty text-[15px] leading-relaxed text-slate-400 sm:text-base"
+      style="--delay: 120ms"
+    >
+      {hero.subtitle}
+    </p>
+
+    <div
+      class="rise mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
+      style="--delay: 180ms"
+    >
+      <a
+        href="/signup"
+        class="press inline-flex h-11 w-full items-center justify-center rounded-xl bg-blue-500 px-6 text-sm font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.15)_inset,0_8px_24px_-8px_rgba(59,130,246,0.7)] transition-colors duration-150 hover:bg-blue-400 sm:w-auto"
+      >
+        {hero.ctaPrimary}
+      </a>
+      <a
+        href="#how"
+        class="press inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-white/5 px-5 text-sm font-medium text-slate-200 ring-1 ring-white/10 transition-colors duration-150 hover:bg-white/10 sm:w-auto"
+      >
+        {hero.ctaSecondary}
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="size-3.5 text-slate-500">
+          <path
+            d="M6 3.5 10.5 8 6 12.5"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+
+    <p class="rise mt-5 text-[13px] text-slate-600" style="--delay: 240ms">{hero.note}</p>
+  </div>
+
+  <!-- Product surface: the actual output of a match run. -->
+  <div class="rise mx-auto mt-16 max-w-3xl sm:mt-20" style="--delay: 300ms">
+    <div
+      class="edge-lit rounded-2xl bg-slate-900/60 p-1.5 ring-1 ring-white/10 backdrop-blur-xl sm:rounded-[20px]"
+    >
+      <div class="rounded-xl bg-slate-950/60 ring-1 ring-white/5 sm:rounded-[14px]">
+        <div
+          class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 px-4 py-3 sm:px-5"
+        >
+          <div class="flex items-center gap-2.5">
+            <span class="size-1.5 rounded-full bg-violet-400"></span>
+            <span class="text-[13px] font-medium text-slate-200">{hero.mock.label}</span>
+          </div>
+          <span class="font-mono text-[11px] tracking-tight text-slate-500"
+            >{hero.mock.listing}</span
+          >
+        </div>
+
+        <ul class="divide-y divide-white/5">
+          {
+            hero.mock.matches.map((match, index) => (
+              <li
+                class="rise flex items-center gap-4 px-4 py-3.5 sm:gap-6 sm:px-5"
+                style={`--delay: ${420 + index * 90}ms`}
+              >
+                <div class="min-w-0 flex-1">
+                  <p class="truncate text-[13px] font-medium text-slate-100">{match.name}</p>
+                  <p class="mt-0.5 truncate text-[12px] text-slate-500">{match.reason}</p>
+                </div>
+
+                <div class="flex shrink-0 items-center gap-2.5">
+                  <div
+                    class="h-1 w-14 overflow-hidden rounded-full bg-white/10 sm:w-24"
+                    role="presentation"
+                  >
+                    <div
+                      class="h-full origin-left rounded-full bg-gradient-to-r from-violet-500 to-blue-500"
+                      style={`width: ${match.score}%; animation: fill 700ms var(--ease-out-quint) both; animation-delay: ${560 + index * 90}ms`}
+                    />
+                  </div>
+                  <span class="w-9 text-right font-mono text-[12px] tabular-nums text-slate-300">
+                    {match.score}%
+                  </span>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global([style*='animation: fill']) {
+      animation: none !important;
+    }
+  }
+</style>

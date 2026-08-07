@@ -1,0 +1,30 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-2.5 ${className}`}>
+  <span
+    class="edge-lit grid size-8 place-items-center rounded-[9px] bg-slate-900 ring-1 ring-white/10"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      class="size-[18px]"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M3.5 10.5 12 4l8.5 6.5" class="stroke-blue-500"></path>
+      <path d="M5.5 12v7.5h13V12" class="stroke-slate-400"></path>
+      <path d="M10 19.5v-4.5h4v4.5" class="stroke-violet-400"></path>
+    </svg>
+  </span>
+  <span class="text-[15px] font-semibold tracking-[-0.015em] text-white">
+    Really<span class="text-slate-500">CRM</span>
+  </span>
+</span>
