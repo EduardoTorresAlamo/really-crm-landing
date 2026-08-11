@@ -5,7 +5,7 @@
  * different origin. These constants point the landing's auth/CTA links at the real app.
  * Override APP_URL at build time with the PUBLIC_APP_URL env var (Cloudflare Pages).
  */
-export const APP_URL = import.meta.env.PUBLIC_APP_URL ?? 'https://app.reallycrm.com';
+export const APP_URL = import.meta.env.PUBLIC_APP_URL ?? 'https://really-crm.vercel.app';
 
 /** The CRM uses passwordless magic-link auth, so login and signup are the same entry point. */
 export const LOGIN_URL = `${APP_URL}/login`;
