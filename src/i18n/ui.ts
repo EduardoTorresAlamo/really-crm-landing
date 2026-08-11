@@ -34,7 +34,7 @@ export const ui = {
       title: 'Tu cartera de compradores,',
       titleAccent: 'emparejada con cada listado.',
       subtitle:
-        'Really CRM guarda las preferencias de cada cliente —presupuesto, zonas, tipo de propiedad, cash o préstamo— y usa Claude para decirte quién encaja con un listado nuevo. En segundos, no en una tarde entera.',
+        'Really CRM guarda las preferencias de cada cliente —presupuesto, zonas, tipo de propiedad, cash o préstamo— y calcula al instante quién encaja con un listado nuevo. En segundos, no en una tarde entera.',
       ctaPrimary: 'Empezar gratis',
       ctaSecondary: 'Ver cómo funciona',
       note: '14 días de prueba · Sin tarjeta de crédito',
@@ -70,7 +70,7 @@ export const ui = {
         {
           key: 'ai',
           title: 'Emparejamiento con IA',
-          body: 'Pega el URL de un listado. Claude extrae precio, cuartos, baños y ubicación, luego ordena tu cartera por calidad de match con la razón escrita de cada uno. Sin plantillas de puntuación que tengas que configurar.',
+          body: 'Pega el URL de un listado. Really CRM extrae precio, cuartos, baños y ubicación, luego ordena tu cartera por calidad de match con la razón escrita de cada uno. Sin plantillas de puntuación que tengas que configurar.',
         },
         {
           key: 'clients',
@@ -207,7 +207,7 @@ export const ui = {
       title: 'Your buyer list,',
       titleAccent: 'matched to every listing.',
       subtitle:
-        'Really CRM stores each client’s preferences — budget, areas, property type, cash or financed — and uses Claude to tell you who fits a new listing. In seconds, not a whole afternoon.',
+        'Really CRM stores each client’s preferences — budget, areas, property type, cash or financed — and instantly works out who fits a new listing. In seconds, not a whole afternoon.',
       ctaPrimary: 'Start free',
       ctaSecondary: 'See how it works',
       note: '14-day trial · No credit card',
@@ -243,7 +243,7 @@ export const ui = {
         {
           key: 'ai',
           title: 'AI property matching',
-          body: 'Paste a listing URL. Claude pulls out price, beds, baths and location, then ranks your book by match quality with a written reason for each one. No scoring rules to configure.',
+          body: 'Paste a listing URL. Really CRM pulls out price, beds, baths and location, then ranks your book by match quality with a written reason for each one. No scoring rules to configure.',
         },
         {
           key: 'clients',

@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
+import { SALES_MAILTO } from '../config';
 
 interface Props {
   lang: Lang;
@@ -18,14 +19,12 @@ const columns = [
       { label: footer.links.features, href: '#features' },
       { label: footer.links.pricing, href: '#pricing' },
       { label: footer.links.login, href: '/login' },
-      { label: footer.links.changelog, href: '/changelog' },
     ],
   },
   {
     title: footer.company,
     links: [
-      { label: footer.links.about, href: '/about' },
-      { label: footer.links.contact, href: '/contact' },
+      { label: footer.links.contact, href: SALES_MAILTO },
     ],
   },
   {

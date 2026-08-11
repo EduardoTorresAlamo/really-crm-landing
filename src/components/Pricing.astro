@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
+import { SIGNUP_URL, SALES_MAILTO } from '../config';
 
 interface Props {
   lang: Lang;
@@ -67,7 +68,7 @@ const featuredIndex = 1;
               </p>
 
               <a
-                href={isEnterprise ? '/contact' : '/signup'}
+                href={isEnterprise ? SALES_MAILTO : SIGNUP_URL}
                 class:list={[
                   'press mt-6 inline-flex h-11 items-center justify-center rounded-xl px-5 text-sm font-medium transition-colors duration-150',
                   featured
